@@ -10,6 +10,7 @@ import com.deploy.praktikum1.util.ValidationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -40,21 +41,42 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDto> getAllUser() {
-        return List.of();
+        List<User> users = userRepository.findAll();
+        List<UserDto> userDto = new ArrayList<>();
+        for (User user : users) {
+            userDto.add(UserMapper.MAPPER.toUserDtoData(user));
+        }
+        return userDto;
     }
 
     @Override
     public UserDto getUserById(String id) {
-        return null;
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User Not found"));
+
+        return UserMapper.MAPPER.toUserDtoData(user);
     }
 
     @Override
-    public UserDto UpdateUser(String idi, UserAddRequest request) {
-        return null;
+    public UserDto UpdateUser(String id, UserAddRequest request) {
+        validationUtil.validate(request);
+
+        User existingUser = userRepository.findById(id).orElseThrow(()-> new RuntimeException("User Not found"));
+
+
+        User user = User.builder()
+                .id(existingUser.getId())
+                .name(request.getName())
+                .age(request.getAge())
+                .build();
+
+        userRepository.save(user);
+
+        return UserMapper.MAPPER.toUserDtoData(user);
     }
 
     @Override
     public void DeleteUser(String id) {
-
+        User user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("user not found"))
+        userRepository.delete(user);
     }
 }
