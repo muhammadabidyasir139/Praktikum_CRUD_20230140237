@@ -6,7 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.xml.validation.Validator;
+import jakarta.validation.Validator;
 import java.util.Set;
 
 @Component
