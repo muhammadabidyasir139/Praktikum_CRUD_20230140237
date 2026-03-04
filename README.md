@@ -1,6 +1,6 @@
-# User API Documentation
+![task get crud](https://github.com/user-attachments/assets/fa854cde-2418-4515-80e3-8c34aea6f949)
 
-Proyek ini adalah aplikasi Spring Boot untuk mengelola data `User`. Dokumentasi ini berisi detail mengenai setiap endpoint (API), format request, serta response jika berhasil (success) maupun jika terjadi kegagalan/error (failure).
+# User API Documentation
 
 ---
 
